@@ -32,7 +32,7 @@ open build/LiveSub.app
 
 If macOS blocks capture, allow LiveSub in System Settings -> Privacy & Security -> Screen & System Audio Recording.
 
-For Cloud AST mode, paste the Volcengine/Doubao Speech API Key from the speech console API Key management page. New speech-console APIs use `X-Api-Key`. The older access-token fields are only kept for older speech-console compatibility.
+For Cloud AST mode, paste the Volcengine/Doubao Speech API Key from the speech console API Key management page. New speech-console APIs use `X-Api-Key`. The older access-token fields are only kept for older speech-console compatibility. See `../../../docs/volcengine-doubao-api-key.md` for the public setup guide.
 
 Do not use the Ark large-model API Key, IAM AccessKey ID, or Secret Access Key for AST mode. Credentials are stored locally at `~/Library/Application Support/LiveSub/cloud-credentials.json` with user-only file permissions.
 

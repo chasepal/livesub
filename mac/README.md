@@ -32,6 +32,6 @@ Cloud AST credentials are entered through the cloud configuration dialog and sto
 ~/Library/Application Support/LiveSub/cloud-credentials.json
 ```
 
-Use the Volcengine/Doubao Speech API Key from the speech console API Key management page. Do not use Ark model keys, IAM AccessKey ID, Secret Access Key, or generic OpenAPI credentials for AST mode.
+Use the Volcengine/Doubao Speech API Key from the speech console API Key management page. Do not use Ark model keys, IAM AccessKey ID, Secret Access Key, or generic OpenAPI credentials for AST mode. See `../docs/volcengine-doubao-api-key.md` for the public setup guide.
 
 If capture is denied, allow `LiveSub` in System Settings -> Privacy & Security -> Screen & System Audio Recording, then restart the app.

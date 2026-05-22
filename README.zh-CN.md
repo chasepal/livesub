@@ -44,7 +44,7 @@ LiveSub-v0.2.0-alpha-macos.zip
 ## 快速开始
 
 1. 打开 `LiveSub.app`。
-2. 在 **引擎与账号** 中配置火山 / 豆包语音服务 API Key。
+2. 在 **引擎与账号** 中配置火山 / 豆包语音服务 API Key。不知道怎么获取的话，看 [火山 / 豆包语音 API Key 获取指南](./docs/volcengine-doubao-api-key.zh-CN.md)。
 3. 点击 **测试连接**。
 4. 按提示授权 macOS **屏幕与系统音频录制** 权限。
 5. 在 Google Chrome 中播放英文音频。
@@ -69,6 +69,8 @@ LiveSub 云端 AST 模式使用火山 / 豆包语音大模型服务里的 API Ke
 - ECS/OpenAPI 之类的通用云服务凭证
 
 LiveSub 会通过 `X-Api-Key` 发送新版语音控制台 API Key。旧版 Access Token 字段只保留给旧控制台兼容。
+
+详细步骤见：[火山 / 豆包语音 API Key 获取指南](./docs/volcengine-doubao-api-key.zh-CN.md)。
 
 ## 隐私
 

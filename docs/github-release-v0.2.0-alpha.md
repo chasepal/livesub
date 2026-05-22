@@ -31,7 +31,7 @@ Unzip it, then right-click `LiveSub.app` and choose **Open**. This alpha build i
 - Chrome capture is app-level, not tab-level
 - First-run onboarding is still basic
 - Screenshots and demo GIF are not included yet
-- Cloud mode requires your own Volcengine/Doubao Speech API Key
+- Cloud mode requires your own Volcengine/Doubao Speech API Key. Setup guide: `docs/volcengine-doubao-api-key.md`
 
 ## SHA-256
 

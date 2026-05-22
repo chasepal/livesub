@@ -42,7 +42,7 @@ Unzip it, then right-click `LiveSub.app` and choose **Open**. The app is current
 ## Quick Start
 
 1. Open `LiveSub.app`.
-2. In **Engine & Account**, configure your Volcengine/Doubao Speech API Key.
+2. In **Engine & Account**, configure your Volcengine/Doubao Speech API Key. Need help getting one? See [Volcengine/Doubao Speech API Key](./docs/volcengine-doubao-api-key.md).
 3. Click **Test Connection**.
 4. Grant macOS **Screen & System Audio Recording** permission when prompted.
 5. Play English audio in Google Chrome.
@@ -67,6 +67,8 @@ Do not use:
 - Generic ECS/OpenAPI credentials
 
 LiveSub sends the new speech-console API Key through `X-Api-Key`. The older access-token fields are only kept for compatibility with older speech-console setups.
+
+Step-by-step setup: [Volcengine/Doubao Speech API Key](./docs/volcengine-doubao-api-key.md).
 
 ## Privacy
 
