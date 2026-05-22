@@ -1,0 +1,20 @@
+.DS_Store
+
+# SwiftPM
+.build/
+
+# Xcode
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcresult
+
+# Local build bundles
+build/
+
+# Local app data and downloaded models should live in ~/Library/Application Support/LiveSub
+Models/
+models/
+Transcripts/
+transcripts/
