@@ -2,6 +2,14 @@
 
 LiveSub is currently an alpha macOS app focused on low-latency Chinese subtitles for Chrome audio.
 
+## v0.2.1-alpha
+
+Goal: polish the daily subtitle overlay after the first public alpha.
+
+- Cleaner text-only subtitle rendering without heavy black stroke
+- History panel automatically follows the newest subtitle
+- Versioned macOS app artifact: `LiveSub-v0.2.1-alpha-macos.zip`
+
 ## v0.2.0-alpha
 
 Goal: make the project understandable and usable from GitHub.

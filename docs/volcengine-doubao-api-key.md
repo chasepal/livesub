@@ -85,4 +85,4 @@ LiveSub cloud mode streams audio while subtitles are running. Stop subtitles whe
 - **401 / authentication failed:** the value is probably not a Doubao Speech API Key, or it has spaces/newlines around it.
 - **403 / no permission:** the API Key exists, but the speech translation / simultaneous interpretation service is not enabled in the same project.
 - **Quota or billing error:** check the Doubao Speech console resource balance, trial state, and billing settings.
-- **You see many different model IDs:** do not choose a model ID in LiveSub v0.2.0-alpha. The cloud subtitle path is fixed to Doubao Speech AST 2.0.
+- **You see many different model IDs:** do not choose a model ID in LiveSub v0.2.1-alpha. The cloud subtitle path is fixed to Doubao Speech AST 2.0.

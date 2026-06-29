@@ -6,7 +6,7 @@ Better live Chinese subtitles for anything playing in Chrome.
 
 LiveSub is a native macOS app that captures Google Chrome audio and shows low-latency Chinese subtitles in a floating overlay. It is built for YouTube Live, Twitch, X Spaces in Chrome, podcasts, interviews, courses, launches, and any English audio you want to understand in real time.
 
-> Status: `v0.2.0-alpha`. LiveSub is usable, but still early. Expect rough edges.
+> Status: `v0.2.1-alpha`. LiveSub is usable, but still early. Expect rough edges.
 
 ## Why LiveSub?
 
@@ -34,7 +34,7 @@ Native captions are useful when you only need same-language captions. LiveSub is
 Download the latest alpha build from GitHub Releases:
 
 ```text
-LiveSub-v0.2.0-alpha-macos.zip
+LiveSub-v0.2.1-alpha-macos.zip
 ```
 
 Unzip it, then right-click `LiveSub.app` and choose **Open**. The app is currently ad-hoc signed for alpha testing, so macOS may warn that it is from an unidentified developer.
@@ -108,8 +108,8 @@ Outputs:
 
 ```text
 build/LiveSub.app
-build/apps/LiveSub-0.2.0-alpha.app
-build/releases/LiveSub-v0.2.0-alpha-macos.zip
+build/apps/LiveSub-0.2.1-alpha.app
+build/releases/LiveSub-v0.2.1-alpha-macos.zip
 ```
 
 Run core smoke tests:

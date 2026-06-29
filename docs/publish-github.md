@@ -3,7 +3,7 @@
 This repo is prepared for:
 
 ```text
-https://github.com/keziqicoze09-del/livesub
+https://github.com/chasepal/livesub
 ```
 
 ## 1. Create the GitHub Repository
@@ -16,7 +16,7 @@ https://github.com/new
 
 Use:
 
-- Owner: `keziqicoze09-del`
+- Owner: `chasepal`
 - Repository name: `livesub`
 - Description: `Better live Chinese subtitles for anything playing in Chrome.`
 - Visibility: public
@@ -29,7 +29,7 @@ From the repository root:
 
 ```sh
 git push -u origin main
-git push origin v0.2.0-alpha
+git push origin v0.2.1-alpha
 ```
 
 ## 3. Create the Release
@@ -37,15 +37,15 @@ git push origin v0.2.0-alpha
 Open:
 
 ```text
-https://github.com/keziqicoze09-del/livesub/releases/new
+https://github.com/chasepal/livesub/releases/new
 ```
 
 Use:
 
-- Tag: `v0.2.0-alpha`
-- Title: `LiveSub v0.2.0-alpha`
-- Release notes: copy from `docs/github-release-v0.2.0-alpha.md`
-- Asset: upload `build/releases/LiveSub-v0.2.0-alpha-macos.zip`
+- Tag: `v0.2.1-alpha`
+- Title: `LiveSub v0.2.1-alpha`
+- Release notes: copy from `docs/github-release-v0.2.1-alpha.md`
+- Asset: upload `build/releases/LiveSub-v0.2.1-alpha-macos.zip`
 
 ## 4. Verify
 
@@ -57,7 +57,7 @@ After publishing, check:
 - SHA-256 matches:
 
 ```text
-d3acc4eddcf6e9b0bd4d3fd4e0c73e561fb583517011d53967fd1d2955e11026
+bfe5facc2ad961e784de818a7fb390df65495a0dc07d4aa726fe919d5057226d
 ```
 
 ## Current Local State
@@ -65,6 +65,6 @@ d3acc4eddcf6e9b0bd4d3fd4e0c73e561fb583517011d53967fd1d2955e11026
 The local repository already has:
 
 - Branch: `main`
-- Remote: `origin -> https://github.com/keziqicoze09-del/livesub.git`
-- Tag: `v0.2.0-alpha`
-- Release zip: `build/releases/LiveSub-v0.2.0-alpha-macos.zip`
+- Remote: `origin -> https://github.com/chasepal/livesub.git`
+- Tag: `v0.2.1-alpha`
+- Release zip: `build/releases/LiveSub-v0.2.1-alpha-macos.zip`

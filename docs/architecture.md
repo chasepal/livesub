@@ -85,6 +85,6 @@ It produces:
 
 ```text
 build/LiveSub.app
-build/apps/LiveSub-0.2.0-alpha.app
-build/releases/LiveSub-v0.2.0-alpha-macos.zip
+build/apps/LiveSub-0.2.1-alpha.app
+build/releases/LiveSub-v0.2.1-alpha-macos.zip
 ```

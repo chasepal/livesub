@@ -1379,9 +1379,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         let overlayLabel = NSTextField(wrappingLabelWithString: "")
         overlayLabel.identifier = NSUserInterfaceItemIdentifier("captionTextOnlyOverlay")
         overlayLabel.alignment = .center
-        overlayLabel.maximumNumberOfLines = 8
+        overlayLabel.maximumNumberOfLines = 14
         overlayLabel.lineBreakMode = .byWordWrapping
         overlayLabel.drawsBackground = false
+        overlayLabel.backgroundColor = .clear
         overlayLabel.isBordered = false
         overlayLabel.isSelectable = false
         overlayLabel.isHidden = true
@@ -1939,13 +1940,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         subtitleSecondaryLabel.textColor = secondarySubtitleTextColor
         subtitleSecondaryLabel.maximumNumberOfLines = 4
         subtitleSecondaryLabel.lineBreakMode = .byWordWrapping
-        subtitlePanel?.alphaValue = subtitleTextOnlyMode ? min(1.0, max(0.82, subtitlePanelOpacity)) : subtitlePanelOpacity
+        subtitlePanel?.alphaValue = subtitleTextOnlyMode ? 1.0 : subtitlePanelOpacity
         let effectiveBackgroundOpacity: CGFloat = subtitleTextOnlyMode ? 0 : subtitleBackgroundOpacity
         subtitlePanelContentView?.layer?.backgroundColor = subtitleBackgroundColor.withAlphaComponent(effectiveBackgroundOpacity).cgColor
         subtitlePanelContentView?.layer?.cornerRadius = subtitleTextOnlyMode ? 0 : 18
         subtitleScrollView?.isHidden = subtitleTextOnlyMode
         subtitleScrollView?.hasVerticalScroller = !subtitleTextOnlyMode
         subtitleOverlayLabel?.isHidden = !subtitleTextOnlyMode
+        subtitleOverlayLabel?.drawsBackground = false
+        subtitleOverlayLabel?.backgroundColor = .clear
+        subtitleOverlayLabel?.maximumNumberOfLines = 14
         subtitlePanel?.hasShadow = !subtitleTextOnlyMode
         subtitleTextOnlyButton?.title = subtitleTextOnlyMode ? "面板" : "纯字"
         subtitleDragGripView?.isHidden = subtitleTextOnlyMode
@@ -1985,7 +1989,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func preferredSubtitlePanelHeight() -> CGFloat {
-        subtitleTextOnlyMode ? min(subtitlePanelHeight, 260) : subtitlePanelHeight
+        subtitleTextOnlyMode ? min(max(subtitlePanelHeight, 260), 360) : subtitlePanelHeight
     }
 
     private func applyTextBacking(to label: NSTextField) {
@@ -2682,14 +2686,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
 
     private func syncSubtitlePanel() {
         guard let transcriptView = subtitleTranscriptView else { return }
-        let shouldStickToBottom = isSubtitleScrolledToBottom() && !subtitleHoverPaused
         transcriptView.textStorage?.setAttributedString(renderSubtitleTranscript())
         subtitleOverlayLabel?.attributedStringValue = renderSubtitleOverlay()
-        if shouldStickToBottom {
-            scrollSubtitleToLatest()
+
+        if subtitleTextOnlyMode {
             subtitleHasUnreadContent = false
         } else {
-            subtitleHasUnreadContent = true
+            scrollSubtitleToLatest()
+            Task { @MainActor [weak self] in
+                self?.scrollSubtitleToLatest()
+            }
+            subtitleHasUnreadContent = false
         }
         updateSubtitleJumpButton()
     }
@@ -2709,7 +2716,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     private func scrollSubtitleToLatest() {
-        subtitleTranscriptView?.scrollToEndOfDocument(nil)
+        guard let transcriptView = subtitleTranscriptView else { return }
+        if let textContainer = transcriptView.textContainer {
+            transcriptView.layoutManager?.ensureLayout(for: textContainer)
+        }
+        transcriptView.scrollRangeToVisible(NSRange(location: transcriptView.string.utf16.count, length: 0))
+
+        guard let scrollView = subtitleScrollView,
+              let documentView = scrollView.documentView
+        else { return }
+
+        documentView.layoutSubtreeIfNeeded()
+        let clipView = scrollView.contentView
+        let targetY = max(0, documentView.bounds.height - clipView.bounds.height)
+        clipView.scroll(to: NSPoint(x: 0, y: targetY))
+        scrollView.reflectScrolledClipView(clipView)
     }
 
     private func updateSubtitleJumpButton() {
@@ -2738,7 +2759,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         }
 
         while blocks.count > 1,
-              (captionCharacterCount(blocks) > 360 || blocks.count > 4) {
+              (captionCharacterCount(blocks) > 520 || blocks.count > 6) {
             blocks.removeFirst()
         }
         return blocks
@@ -2785,26 +2806,38 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         paragraph.lineSpacing = primary ? 3 : 1
         paragraph.paragraphSpacing = primary ? 4 : 10
 
-        let shadow = NSShadow()
-        shadow.shadowColor = NSColor.black.withAlphaComponent(0.96)
-        shadow.shadowOffset = NSSize(width: 0, height: -1)
-        shadow.shadowBlurRadius = primary ? 7 : 5
-
         let font = primary
-            ? NSFont.systemFont(ofSize: primarySubtitleFontSize + 2, weight: .heavy)
-            : NSFont.systemFont(ofSize: max(13, secondarySubtitleFontSize + 1), weight: .semibold)
+            ? NSFont.systemFont(ofSize: primarySubtitleFontSize, weight: .semibold)
+            : NSFont.systemFont(ofSize: max(13, secondarySubtitleFontSize), weight: .medium)
         let color = primary ? primarySubtitleTextColor : secondarySubtitleTextColor
 
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
             .foregroundColor: color,
-            .strokeColor: NSColor.black.withAlphaComponent(0.82),
-            .strokeWidth: primary ? -3.2 : -2.4,
-            .shadow: shadow,
+            .shadow: subtleOverlayShadow(for: color, primary: primary),
             .paragraphStyle: paragraph
         ]
 
         output.append(NSAttributedString(string: text + "\n", attributes: attributes))
+    }
+
+    private func subtleOverlayShadow(for color: NSColor, primary: Bool) -> NSShadow {
+        let shadow = NSShadow()
+        let luminance = subtitleTextLuminance(color)
+        let shadowBase: NSColor = luminance < 0.45 ? .white : .black
+        shadow.shadowColor = shadowBase.withAlphaComponent(primary ? 0.28 : 0.20)
+        shadow.shadowOffset = NSSize(width: 0, height: luminance < 0.45 ? 1 : -1)
+        shadow.shadowBlurRadius = primary ? 3 : 2
+        return shadow
+    }
+
+    private func subtitleTextLuminance(_ color: NSColor) -> CGFloat {
+        guard let rgbColor = color.usingColorSpace(.sRGB) ?? color.usingColorSpace(.deviceRGB) else {
+            return 1
+        }
+        return (0.2126 * rgbColor.redComponent)
+            + (0.7152 * rgbColor.greenComponent)
+            + (0.0722 * rgbColor.blueComponent)
     }
 
     private func renderSubtitleTranscript() -> NSAttributedString {
